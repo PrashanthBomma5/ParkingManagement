@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Parking reciept</title>
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <header></header>
+    <main>
+      <div class="card">
+        <div class="container mt-5">
+          <div class="col-6 offset-2">
+            <div class="card-header" style="background-color: cadetblue">
+              <b> PARKING RECIEPT</b>
+            </div>
+            <div class="card-body" style="background-color: lightgray">
+              <table
+                class="table table-hover"
+                style="background-color: lightgray"
+              >
+                <tr>
+                  <td>Vehicle No</td>
+                  <td>{{data.vehicle_no}}</td>
+                </tr>
+                <tr>
+                  <td>Vehicle Type</td>
+                  <td>{{data.vehicletype}}</td>
+                </tr>
+                <tr>
+                  <td>Parking Area Number</td>
+                  <td>{{data.parkingareanumber.parkingareanumber}}</td>
+                </tr>
+                <tr>
+                  <td>Parking Charge</td>
+                  <td>{{data.parkingharge}}</td>
+                </tr>
+                <tr>
+                  <td>Arrival Date&Time</td>
+                  <td>{{data.arrival_time}}</td>
+                </tr>
+              </table>
+              <a href="{% url 'vehicleentry' %}" class="btn btn-secondary no-print"
+                >Back</a
+              >
+              <a href="{% url 'dashboard' %}" class="btn btn-primary no-print">Home</a>
+              <button class="btn btn-info no-print" onclick="window.print()">
+                Print
+              </button>
+              <style>
+                @media print {
+                  .no-print {
+                    display: none;
+                  }
+                }
+              </style>
+              <script>
+                window.onload = function () {
+                  if (window.history && window.history.pushState) {
+                    window.history.pushState(null, null, window.location.href);
+                    window.onpopstate = function () {
+                      window.location.href = "/reciept/6/"; // Replace with the correct URL format
+                    };
+                  }
+                };
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

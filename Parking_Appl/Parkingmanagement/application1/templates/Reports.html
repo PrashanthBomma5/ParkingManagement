@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+          
+         
+  <div class="row" style="margin-top: -450px;" >
+    <div class="col-9 offset-3">
+    <div class="card">
+      <div class="card-header" style="background-color: lightgrey;" >
+         Vehicle Details
+      </div>
+ <div class="card-body">
+        <div class="mb-3">
+          <label>
+              Show
+          </label>
+          <input type="number" name="" id="" min="1" max="10">Entires
+          <form style="display:inline" action="{% url 'vehiclesearch' %}" method="get">
+
+              <input type="search" name="query" placeholder="search by vehicleno" class="offset-6">
+           <button type="submit">search</button>
+        </form>
+
+         </div>
+        <div class="row mt-4">
+          <div class="col">
+            <table class="table table-bordered">
+              <tr>
+                <th>s.no</th>
+                <th>Vehicle Number</th>
+                <th>Area Number</th>
+                <th>Arrival Time</th>
+                <th>status</th>
+                <th>Aciton</th>
+              </tr>
+                {% for x in page_obj %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{x.vehicle_no}}</td>
+                <td>{{x.parkingareanumber.parkingareanumber}}</td>
+                <td>{{x.arrival_time}}</td>
+                <td>
+                    {% if x.status %}
+                    <a href="{% url 'leave' x.id %}">
+                        <span class="btn btn-success rounded-pill px-3">Parked</span>
+                    </a>
+                      {% else %}
+                    <a href="{% url 'park' x.id %}">
+                      <span class="btn btn-danger rounded-pill px-3">Leaved</span>
+                    </a>
+                      {% endif %}
+
+                </td>
+                <td>
+                    <span>
+                      <a href="{% url 'reciept' x.id %}">
+                      <button class="btn btn-outline-secondary" type="button"><i class="fa-solid fa-receipt"></i>Reciept</button>
+                      </a>
+                    </span>
+                </td>
+
+              </tr>
+                {% endfor %}
+            </table>
+          <div class="d-flex justify-content-between">
+            <label for="">
+              <p> show{{page_obj.number }}/{{page_obj.paginator.num_pages}} pages</p>
+            </label>
+                <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item">
+                            {% if page_obj.has_previous %}
+                            <a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a>
+                            {% else %}
+                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                            {% endif %}
+                        </li>
+                        {% for num_page in page_obj.paginator.page_range %}<br/>
+                          {% if page_obj.number == num_page %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'vehicleentry' %}?page={{num_page}}">{{num_page}}</a></li>
+                          {% else %}
+                           <li class="page-item "><a class="page-link" href="{% url 'vehicleentry' %}?page={{num_page}}">{{num_page}}</a></li>
+                          {% endif %}
+                          <br/>
+                          {% endfor %}
+
+                        <li class="page-item">
+                            {%  if page_obj.has_next %}<a class="page-link" href="{%  url 'vehicleentry' %}?page={{page.next_page_number}}">Next</a>
+                            {% else %}
+                             <li class="page-item disabled"><span class="page-link">last</span></li>
+                        {% endif %}
+                        </li>
+                      </ul>
+                    </nav>
+
+            </div>
+
+          </div>
+        </div>
+
+
+        </div>
+    </div>
+        {% endblock %}
+
+
+
